@@ -16,11 +16,11 @@ public class SocialMetaTagConytoller {
     @Autowired
     private SocialMetaTagService service;
 
-    @PostMapping("/info")
+    @PostMapping("info")
     public ResponseEntity<SocialMetaTag> getDadosViaUrl(@RequestParam("url") String url) {
         SocialMetaTag socialMetaTag = service.getSocialMetaTag(url);
 
-        return socialMetaTag == null
+        return socialMetaTag != null
                 ? ResponseEntity.ok(socialMetaTag)
                 : ResponseEntity.notFound().build();
     }
