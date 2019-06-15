@@ -18,6 +18,10 @@ $("#form-add-promo").submit(function (evt) {
         method: "POST",
         url: "/promocao/save",
         data: promo,
+        beforeSend: function() {
+            $("#form-add-promo").hide();
+            $("#loader-form").addClass("loader").show();
+        },
         success: function (data) {
             //Reset do formulario
             $("#form-add-promo").each(function () {
@@ -38,6 +42,12 @@ $("#form-add-promo").submit(function (evt) {
             setTimeout(function () {
                 $("#alert").removeClass("alert alert-danger").text("");
             }, 5000);
+        },
+        complete: function () {
+            $("#loader-form").fadeOut(800, function () {
+                $("#form-add-promo").fadeIn(250);
+                $("#loader-form").removeClass("loader");
+            });
         }
     })
 })
