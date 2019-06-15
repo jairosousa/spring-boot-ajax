@@ -9,17 +9,17 @@ $("#form-add-promo").submit(function (evt) {
     promo.descricao = $("#descricao").val();
     promo.preco = $("#preco").val();
     promo.categoria = $("#categoria").val();
-    promo.linkImage = $("#linkImagem").attr("src");
+    promo.linkImagem = $("#linkImagem").attr("src");
     promo.site = $("#site").text();
 
     console.log('promo > ', promo);
 
     $.ajax({
         method: "POST",
-        url: "promocao/save",
+        url: "/promocao/save",
         data: promo,
         success: function (data) {
-            $("#alert").addClass("alert alert-sucesses").text("OK! Promoção cadastrada com sucesso!");
+            $("#alert").addClass("alert alert-success").text("OK! Promoção cadastrada com sucesso!");
             setTimeout(function () {
                 $("#alert").removeClass("alert alert-danger").text("");
             }, 5000);
