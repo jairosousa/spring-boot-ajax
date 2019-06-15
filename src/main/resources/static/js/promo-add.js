@@ -36,6 +36,19 @@ $("#form-add-promo").submit(function (evt) {
                 $("#alert").removeClass("alert alert-success").text("");
             }, 5000);
         },
+        statusCode: {
+            //Mostrar mensagem de erro de validação
+            422: function (xhr) {
+                console.log(xhr.status);
+                var errors = $.parseJSON(xhr.responseText);
+                $.each(errors, function (key, val) {
+                    $("#" + key).addClass("is-invalid");
+                    $("#error-" + key)
+                        .addClass("invalid-feedback")
+                        .append("<span class='error-span'>" + val + "</span>");
+                });
+            }
+        },
         error: function (xhr) {
             console.log("> error: ", xhr.responseText);
             $("#alert").addClass("alert alert-danger").text("Não foi possivel salvar essa promoção.");
