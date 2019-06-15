@@ -21,15 +21,9 @@ public class DemoAjaxApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		 
-		SocialMetaTag og = service.getOpenGraphByUrl("https://www.pichau.com.br/placa-mae-asus-prime-b450m-a-ddr4-socket-am4-chipset-amd-b450");
+		SocialMetaTag tag = service.getSocialMetaTag("https://www.pichau.com.br/placa-mae-asus-prime-b450m-a-ddr4-socket-am4-chipset-amd-b450");
 		
-		System.out.println(og.toString());
-
-		System.out.println("---------------------------------------------------");
-
-		SocialMetaTag twittwr = service.getTwitterCardByUrl("https://www.udemy.com/spring-boot-mvc-com-thymeleaf/");
-
-		System.out.println(twittwr.toString());
+		System.out.println(tag.toString());
 
 	}
 

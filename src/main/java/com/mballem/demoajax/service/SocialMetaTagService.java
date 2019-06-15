@@ -14,8 +14,22 @@ import com.mballem.demoajax.domain.SocialMetaTag;
 public class SocialMetaTagService {
 
 	private static Logger log = LoggerFactory.getLogger(SocialMetaTagService.class);
+
+	public SocialMetaTag getSocialMetaTag(String url){
+		SocialMetaTag twitter = getTwitterCardByUrl(url);
+		if (!isEmpty(twitter)){
+			return twitter;
+		}
+
+		SocialMetaTag openGraph = getOpenGraphByUrl(url);
+		if (!isEmpty(openGraph)){
+			return openGraph;
+		}
+
+		return null;
+	}
 	
-	public SocialMetaTag getTwitterCardByUrl(String url) {
+	private SocialMetaTag getTwitterCardByUrl(String url) {
 
 		SocialMetaTag tag = new SocialMetaTag();
 
@@ -33,7 +47,7 @@ public class SocialMetaTagService {
 
 	}
 
-	public SocialMetaTag getOpenGraphByUrl(String url) {
+	private SocialMetaTag getOpenGraphByUrl(String url) {
 
 		SocialMetaTag tag = new SocialMetaTag();
 
@@ -49,6 +63,14 @@ public class SocialMetaTagService {
 
 		return tag;
 
+	}
+
+	private boolean isEmpty(SocialMetaTag tag) {
+		if(tag.getImage().isEmpty()) return true;
+		if(tag.getSite().isEmpty()) return true;
+		if(tag.getTitle().isEmpty()) return true;
+		if(tag.getUrl().isEmpty()) return true;
+		return false;
 	}
 
 }
