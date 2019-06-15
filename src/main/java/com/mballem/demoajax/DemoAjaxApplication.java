@@ -15,16 +15,9 @@ public class DemoAjaxApplication implements CommandLineRunner{
 		SpringApplication.run(DemoAjaxApplication.class, args);
 	}
 	
-	@Autowired
-	private SocialMetaTagService service;
-
 	@Override
 	public void run(String... args) throws Exception {
 		 
-		SocialMetaTag tag = service.getSocialMetaTag("https://www.pichau.com.br/placa-mae-asus-prime-b450m-a-ddr4-socket-am4-chipset-amd-b450");
-		
-		System.out.println(tag.toString());
-
 	}
 
 }
