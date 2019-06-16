@@ -61,8 +61,8 @@ $(document).on("click","button[id*='likes-btn-']", function () {
 
     $.ajax({
         method: "POST",
-        url: "/promocao/likes/" + id,
-        sucess: function (response) {
+        url: "/promocao/like/" + id,
+        success: function (response) {
             $("#likes-count-" + id).text(response);
         },
         error: function (xhr) {

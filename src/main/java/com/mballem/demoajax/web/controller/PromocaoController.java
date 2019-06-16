@@ -34,6 +34,16 @@ public class PromocaoController {
     @Autowired
     private PromocaoRepository promocaoRepository;
 
+    // ==========ADD LIKES================
+    @PostMapping("like/{id}")
+    public ResponseEntity<?> adicionarLikes(@PathVariable("id") Long id) {
+        promocaoRepository.updateSomarLikes(id);
+        int likes = promocaoRepository.findLikesById(id);
+
+        return ResponseEntity.ok(likes);
+    }
+
+
     // ==========LISTAR OFERTAS================
     @GetMapping("list")
     public String listarOfertas(ModelMap model) {
@@ -54,7 +64,6 @@ public class PromocaoController {
     }
 
     // ==========ADD OFERTAS================
-
     @ModelAttribute("categorias")
     public List<Categoria> getCategorias() {
         return categoriaRepository.findAll();
