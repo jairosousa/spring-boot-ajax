@@ -6,7 +6,6 @@ $(document).ready(function () {
     $("#fim-btn").hide();
 })
 
-
 //efeito infinite-scroll
 $(window).scroll(function () {
     var scrollTop = $(this).scrollTop();
@@ -56,7 +55,18 @@ function loadByScrollBar(pageNumber) {
 }
 
 // adicionar likes
-$("button[id*='likes-btn-']").on("click", function () {
+$(document).on("click","button[id*='likes-btn-']", function () {
     var id = $(this).attr("id").split("-")[2];
-    console.log("id: ", id);
+    // console.log("id: ", id);
+
+    $.ajax({
+        method: "POST",
+        url: "/promocao/likes/" + id,
+        sucess: function (response) {
+            $("#likes-count-" + id).text(response);
+        },
+        error: function (xhr) {
+            alert("Ops...Ocorreu um erro: " + xhr.status + " - " + xhr.statusText);
+        }
+    })
 })
