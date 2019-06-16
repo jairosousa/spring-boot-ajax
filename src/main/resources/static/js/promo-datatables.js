@@ -3,7 +3,7 @@ $(document).ready(function () {
         processing: true,
         serverSide: true,
         responsive: true,
-        lengthMenu: [ 10,15,20,25 ],
+        lengthMenu: [10, 15, 20, 25],
         ajax: {
             url: "/promocao/datatables/server",
             data: "data"
@@ -15,7 +15,7 @@ $(document).ready(function () {
             {data: 'linkPromocao'},
             {data: 'descricao'},
             {data: 'linkImagem'},
-            {data: 'preco'},
+            {data: 'preco', render: $.fn.dataTable.render.number('.', ',', 2, 'R$')},
             {data: 'likes'},
             {data: 'dtCadastro'},
             {data: 'categoria.titulo'}
