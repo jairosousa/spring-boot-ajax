@@ -34,7 +34,7 @@ public class PromocaoController {
     @Autowired
     private PromocaoRepository promocaoRepository;
 
-    // ==========lISTAR OFERTAS================
+    // ==========LISTAR OFERTAS================
     @GetMapping("list")
     public String listarOfertas(ModelMap model) {
         Sort sort = new Sort(Sort.Direction.DESC, "dtCadastro");
