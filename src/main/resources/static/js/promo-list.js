@@ -1,10 +1,18 @@
 var pageNumber = 0;
+
+//Rotina para quando abrir a pagina pela primeira vez
+$(document).ready(function () {
+    $("#loader-img").hide();
+    $("#fim-btn").hide();
+})
+
+
 //efeito infinite-scroll
 $(window).scroll(function () {
     var scrollTop = $(this).scrollTop();
     var conteudo = $(document).height() - $(window).height();
 
-    console.log("scrollTop: ", scrollTop, " | ", "conteudo", conteudo);
+    // console.log("scrollTop: ", scrollTop, " | ", "conteudo", conteudo);
 
     if (scrollTop >= conteudo) {
         pageNumber++;
@@ -21,8 +29,28 @@ function loadByScrollBar(pageNumber) {
         data: {
             page: pageNumber
         },
+        beforeSend: function () {
+            $("#loader-img").show();
+        },
         success: function (response) {
-            console.log("resposta", response)
+            // console.log("resposta", response);
+
+            if (response.length > 150) {
+                $(".row").fadeIn(500, function () {
+                    $(this).append(response);
+                })
+            } else {
+                //Mostra o botão retornar ao topo
+                $("#fim-btn").show();
+                $("#loader-img").removeClass("loader"); //evitar loader apareça quando chega fim página
+            }
+
+        },
+        error: function (xhr) {
+            alert("Ops... ocorreu erro: " + xhr.status + " - " + xhr.statusText);
+        },
+        complete: function () {
+            $("#loader-img").hide();
         }
     })
 }
