@@ -18,10 +18,12 @@ $(document).ready(function () {
             {data: 'linkImagem'},
             {data: 'preco', render: $.fn.dataTable.render.number('.', ',', 2, 'R$ ')},
             {data: 'likes'},
-            {data: 'dtCadastro', render:
+            {
+                data: 'dtCadastro', render:
                     function (dtCadastro) {
-                    return moment(dtCadastro).format('LLL');
-                }},
+                        return moment(dtCadastro).format('LLL');
+                    }
+            },
             {data: 'categoria.titulo'}
         ],
         dom: 'Bfrtip',
@@ -45,6 +47,15 @@ $(document).ready(function () {
         ]
     });
 
+    $("#table-server tbody").on('click', 'tr', function () {
+        if ($(this).hasClass('selected')) {
+            $(this).removeClass('selected');
+        } else {
+            $("tr.selected").removeClass('selected');
+            $(this).addClass('selected');
+        }
+    });
+
     $("#btn-editar").on("click", function () {
         alert("Click no botão editar");
     });
@@ -52,5 +63,8 @@ $(document).ready(function () {
     $("#btn-excluir").on("click", function () {
         alert("Click no botão excluir");
     })
+
+    $("#btn-editar").removeClass("btn-secondary").addClass("btn-primary");
+    $("#btn-excluir").removeClass("btn-secondary").addClass("btn-danger");
 
 });
