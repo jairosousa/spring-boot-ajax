@@ -12,7 +12,7 @@ $(document).ready(function () {
             {data: 'id'},
             {data: 'titulo'},
             {data: 'site'},
-            {data: 'linkPrtomocao'},
+            {data: 'linkPromocao'},
             {data: 'descricao'},
             {data: 'preco'},
             {data: 'likes'},

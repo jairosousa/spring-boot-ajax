@@ -1,16 +1,16 @@
 package com.mballem.demoajax.service;
 
+import com.mballem.demoajax.domain.Promocao;
 import com.mballem.demoajax.repository.PromocaoRepository;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-@Service
 public class PromocaoDatatablesService {
 
     private String[] cols = {
@@ -20,23 +20,29 @@ public class PromocaoDatatablesService {
     public Map<String, Object> execute(PromocaoRepository repository, HttpServletRequest request) {
 
         int start = Integer.parseInt(request.getParameter("start"));
-        int lenght = Integer.parseInt(request.getParameter("lenght"));
+        int length = Integer.parseInt(request.getParameter("length"));
         int draw = Integer.parseInt(request.getParameter("draw"));
 
-        int current = currentPage(start, lenght);
+        int current = currentPage(start, length);
 
         String column = columnName(request);
         Sort.Direction direction = orderBy(request);
 
-        Pageable pageable = PageRequest.of(current, lenght, direction, column);
+        Pageable pageable = PageRequest.of(current, length, direction, column);
+
+        Page<Promocao> page = queryBy(repository, pageable);
 
         Map<String, Object> json = new LinkedHashMap<>();
-        json.put("draw", null);
-        json.put("recordsTotal", 0);
-        json.put("recordsFiltered", 0);
-        json.put("data", null);
+        json.put("draw", draw);
+        json.put("recordsTotal", page.getTotalElements());
+        json.put("recordsFiltered", page.getTotalElements());
+        json.put("data", page.getContent());
 
         return json;
+    }
+
+    private Page<Promocao> queryBy(PromocaoRepository repository, Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
     private Sort.Direction orderBy(HttpServletRequest request) {

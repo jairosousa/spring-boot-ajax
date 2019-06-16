@@ -4,6 +4,7 @@ import com.mballem.demoajax.domain.Categoria;
 import com.mballem.demoajax.domain.Promocao;
 import com.mballem.demoajax.repository.CategoriaRepository;
 import com.mballem.demoajax.repository.PromocaoRepository;
+import com.mballem.demoajax.service.PromocaoDatatablesService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -33,6 +35,20 @@ public class PromocaoController {
 
     @Autowired
     private PromocaoRepository promocaoRepository;
+
+    // ==========DATATABLES================
+
+    @GetMapping("tabela")
+    public String showTabela() {
+        return "promo-datatables";
+    }
+
+    @GetMapping("datatables/server")
+    public ResponseEntity<?> datatables(HttpServletRequest request) {
+        Map<String, Object> data = new  PromocaoDatatablesService().execute(promocaoRepository, request);
+        return ResponseEntity.ok(data);
+    }
+
 
     // ==========AUTOCOMPLETE================
     @GetMapping("site")
