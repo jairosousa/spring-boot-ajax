@@ -1,6 +1,6 @@
 $(document).ready(function () {
     moment.locale('pt-br');
-    $("#table-server").DataTable({
+    var table = $("#table-server").DataTable({
         processing: true,
         serverSide: true,
         responsive: true,
@@ -34,35 +34,44 @@ $(document).ready(function () {
                     id: 'btn-editar',
                     type: 'button'
                 },
-                className: 'btn btn-primary'
+                enabled: false
             },
             {
                 text: "Excluir",
                 attr: {
                     id: 'btn-excluir',
-                    type: 'button',
-                    className: 'btn btn-danger'
-                }
+                    type: 'button'
+                },
+                enabled: false
             }
         ]
     });
 
+    // Ação para marcar e desmarcar botões ao clicar na ordenação
+    $("#table-server thead").on('click', 'tr', function () {
+            table.buttons().disable();
+    });
+
+    // Ação para marcar/desmarcar linhas clicadas
     $("#table-server tbody").on('click', 'tr', function () {
         if ($(this).hasClass('selected')) {
             $(this).removeClass('selected');
+            table.buttons().disable();
         } else {
             $("tr.selected").removeClass('selected');
             $(this).addClass('selected');
+            table.buttons().enable();
         }
     });
 
     $("#btn-editar").on("click", function () {
-        alert("Click no botão editar");
+        var id = table.row(table.$('tr.selected')).data().id;
+        alert("Click no botão editar: " + id);
     });
 
     $("#btn-excluir").on("click", function () {
         alert("Click no botão excluir");
-    })
+    });
 
     $("#btn-editar").removeClass("btn-secondary").addClass("btn-primary");
     $("#btn-excluir").removeClass("btn-secondary").addClass("btn-danger");
