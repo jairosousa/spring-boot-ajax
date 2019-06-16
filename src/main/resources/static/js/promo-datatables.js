@@ -14,6 +14,7 @@ $(document).ready(function () {
             {data: 'site'},
             {data: 'linkPromocao'},
             {data: 'descricao'},
+            {data: 'linkImagem'},
             {data: 'preco'},
             {data: 'likes'},
             {data: 'dtCadastro'},
