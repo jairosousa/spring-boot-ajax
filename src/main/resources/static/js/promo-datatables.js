@@ -78,6 +78,12 @@ $(document).ready(function () {
             method: "POST",
             url: "/promocao/edit/",
             data: promo,
+            beforeSend: function() {
+                //Removendo as menssagens de erro
+                $("span").closest(".error-span").remove();
+                //Remover as bordas vermelhas
+                $(".is-invalid").removeClass("is-invalid");
+            },
             success: function () {
                 $("#modal-form").modal('hide');
                 table.ajax.reload();
@@ -113,6 +119,10 @@ $(document).ready(function () {
                 method: "GET",
                 url: "/promocao/edit/" + id,
                 beforeSend: function () {
+                    //Removendo as menssagens de erro
+                    $("span").closest(".error-span").remove();
+                    //Remover as bordas vermelhas
+                    $(".is-invalid").removeClass("is-invalid");
                     $("#modal-form").modal('show');
                 },
                 success: function (data) {
