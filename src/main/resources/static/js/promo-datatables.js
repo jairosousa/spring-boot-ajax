@@ -64,9 +64,35 @@ $(document).ready(function () {
         }
     });
 
+    // Recupera as informações para pre-editar
     $("#btn-editar").on("click", function () {
         if (isSelectedRow()) {
-            $("#modal-form").modal('show');
+            var id = getPromoId();
+
+            $.ajax({
+                method: "GET",
+                url: "/promocao/edit/" + id,
+                beforeSend: function () {
+                    $("#modal-form").modal('show');
+                },
+                success: function (data) {
+                    $('#edt_id').val(data.id);
+                    $('#edt_site').text(data.site);
+                    $('#edt_titulo').val(data.titulo);
+                    $('#edt_descricao').val(data.descricao);
+                    $('#edt_preco').val(data.preco.toLocaleString('pt-BR', {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    }));
+                    $('#edt_categoria').val(data.categoria.id);
+                    $('#edt_linkImagem').val(data.linkImagem);
+                    $('#edt_imagem').attr("src", data.linkImagem);
+                },
+                error: function () {
+                    alert("Ops... ocorreu um erro, tente mais tarde.");
+                }
+            });
+
         }
     });
 
@@ -76,11 +102,12 @@ $(document).ready(function () {
         }
     });
 
-    function getPromoId(){
-        return table.row(table.$('tr.selected')).data().id;;
+    function getPromoId() {
+        return table.row(table.$('tr.selected')).data().id;
+        ;
     }
 
-    function isSelectedRow(){
+    function isSelectedRow() {
         var trow = table.row(table.$('tr.selected'));
         return trow.data() !== undefined;
     }
