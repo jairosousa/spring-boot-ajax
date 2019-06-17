@@ -49,7 +49,7 @@ $(document).ready(function () {
 
     // Ação para marcar e desmarcar botões ao clicar na ordenação
     $("#table-server thead").on('click', 'tr', function () {
-            table.buttons().disable();
+        table.buttons().disable();
     });
 
     // Ação para marcar/desmarcar linhas clicadas
@@ -65,13 +65,25 @@ $(document).ready(function () {
     });
 
     $("#btn-editar").on("click", function () {
-        var id = table.row(table.$('tr.selected')).data().id;
-        alert("Click no botão editar: " + id);
+        if (isSelectedRow()) {
+            $("#modal-form").modal('show');
+        }
     });
 
     $("#btn-excluir").on("click", function () {
-        alert("Click no botão excluir");
+        if (isSelectedRow()) {
+            $("#modal-delete").modal('show');
+        }
     });
+
+    function getPromoId(){
+        return table.row(table.$('tr.selected')).data().id;;
+    }
+
+    function isSelectedRow(){
+        var trow = table.row(table.$('tr.selected'));
+        return trow.data() !== undefined;
+    }
 
     $("#btn-editar").removeClass("btn-secondary").addClass("btn-primary");
     $("#btn-excluir").removeClass("btn-secondary").addClass("btn-danger");
