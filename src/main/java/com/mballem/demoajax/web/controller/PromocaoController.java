@@ -49,6 +49,12 @@ public class PromocaoController {
         return ResponseEntity.ok(data);
     }
 
+    @GetMapping("delete/{id}")
+    public ResponseEntity<?> excluirPromocao(@PathVariable("id") Long id) {
+        promocaoRepository.deleteById(id);
+
+        return ResponseEntity.ok().build();
+    }
 
     // ==========AUTOCOMPLETE================
     @GetMapping("site")
@@ -90,6 +96,7 @@ public class PromocaoController {
                               ModelMap model) {
         Sort sort = new Sort(Sort.Direction.DESC, "dtCadastro");
         PageRequest pageRequest = PageRequest.of(page, 8, sort);
+
         if (site.isEmpty()) {
             model.addAttribute("promocoes", promocaoRepository.findAll(pageRequest));
         } else {

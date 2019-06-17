@@ -85,6 +85,23 @@ $(document).ready(function () {
         return trow.data() !== undefined;
     }
 
+    // Exclusão promoção
+    $("#btn-del-modal").on("click", function () {
+        var id = getPromoId();
+
+        $.ajax({
+            method: "GET",
+            url: "/promocao/delete/" + id,
+            success: function () {
+                $("#modal-delete").modal('hide');
+                table.ajax.reload();
+            },
+            error: function () {
+                alert("Ops... ocorreu um erro, tente mais tarde.");
+            }
+        });
+    });
+
     $("#btn-editar").removeClass("btn-secondary").addClass("btn-primary");
     $("#btn-excluir").removeClass("btn-secondary").addClass("btn-danger");
 
