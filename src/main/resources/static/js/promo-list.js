@@ -137,6 +137,6 @@ function showButton(count) {
     totalOfertas = totalOfertas + count;
     $("#btn-alert").show(function () {
         $(this).attr("style", "display: block;")
-            .text("Vela " + totalOfertas + " nova(s) ofertas(s)")
+            .text("Veja " + totalOfertas + " nova(s) ofertas(s)")
     })
 }

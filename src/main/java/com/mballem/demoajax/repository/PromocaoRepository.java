@@ -16,7 +16,7 @@ import java.util.Map;
 
 public interface PromocaoRepository extends JpaRepository<Promocao, Long> {
 
-    @Query("select count(p.id) as count, max(p.dtCadastro) from Promocao p where p.dtCadastro > :data")
+    @Query("select count(p.id) as count, max(p.dtCadastro) as lastDate from Promocao p where p.dtCadastro > :data")
     Map<String, Object> totalAndUltimaPromocaoByDataCadastro(@Param("data") LocalDateTime data);
 
     @Query("select p.dtCadastro from Promocao p")
