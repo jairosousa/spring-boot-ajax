@@ -116,4 +116,27 @@ $(document).on("click", "button[id*='likes-btn-']", function () {
             alert("Ops...Ocorreu um erro: " + xhr.status + " - " + xhr.statusText);
         }
     });
-})
+});
+
+// AJAX REVERSO
+var totalOfertas = 0;
+function init() {
+    console.log("dwr int...");
+
+    dwr.engine.setActiveReverseAjax(true);
+    dwr.engine.setErrorHandler(error);
+
+    DWRAlertaPromocao.init();
+}
+
+function error(excpetion) {
+    console.log("dwr erro: ", excpetion);
+}
+
+function showButton(count) {
+    totalOfertas = totalOfertas + count;
+    $("#btn-alert").show(function () {
+        $(this).attr("style", "display: block;")
+            .text("Vela " + totalOfertas + " nova(s) ofertas(s)")
+    })
+}
