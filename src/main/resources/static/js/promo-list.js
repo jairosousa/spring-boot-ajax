@@ -99,7 +99,7 @@ $("#autocomplete-submit").on("click", function () {
             alert("Ops...algo deu errado: " + xhr.status + " - " + xhr.statusText);
         }
     })
-})
+});
 
 // adicionar likes
 $(document).on("click", "button[id*='likes-btn-']", function () {
@@ -145,3 +145,34 @@ function showButton(count) {
             .text("Veja " + totalOfertas + " nova(s) ofertas(s)")
     })
 }
+
+$("#btn-alert").on("click", function () {
+
+    $.ajax({
+        method: "GET",
+        url: "/promocao/list/ajax",
+        data: {
+            page: 0
+        },
+        beforeSend: function () {
+            pageNumber = 0;
+            totalOfertas = 0;
+            $("#fim-btn").hide();
+            $("#loader-form").addClass("loader").show();
+            $("#btn-alert").attr("style", "display: none;");
+            $("")
+            $(".row").fadeOut(400, function () {
+                $(this).empty();
+            });
+        },
+        success: function (response) {
+            $("#loader-form").removeClass("loader");
+            $(".row").fadeIn(250, function () {
+                $(this).append(response);
+            });
+        },
+        error: function (xhr) {
+            alert("Ops...algo deu errado: " + xhr.status + " - " + xhr.statusText);
+        }
+    })
+});
