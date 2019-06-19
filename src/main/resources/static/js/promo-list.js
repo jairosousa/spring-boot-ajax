@@ -120,6 +120,11 @@ $(document).on("click", "button[id*='likes-btn-']", function () {
 
 // AJAX REVERSO
 var totalOfertas = 0;
+
+$(document).ready(function () {
+    init();
+});
+
 function init() {
     console.log("dwr int...");
 
